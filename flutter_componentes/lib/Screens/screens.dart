@@ -7,3 +7,4 @@ export 'package:flutter_componentes/Screens/avatar_screen.dart';
 export 'package:flutter_componentes/Screens/animated_screens.dart';
 export 'package:flutter_componentes/Screens/inputs_screen.dart';
 export 'package:flutter_componentes/Screens/slider_screen.dart';
+export 'package:flutter_componentes/Screens/listview_builder_screen.dart';
