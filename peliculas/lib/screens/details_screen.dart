@@ -6,6 +6,7 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final String movie =
         ModalRoute.of(context)?.settings.arguments.toString() ??
             'Ya no está :(';
