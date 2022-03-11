@@ -32,10 +32,19 @@ class Movie {
   bool video;
   double voteAverage;
   int voteCount;
+  String? heroId;
 
   get fullPosterImg {
     if (posterPath != null) {
       return 'https://image.tmdb.org/t/p/w500$posterPath';
+    }
+
+    return 'https://studiosol-a.akamaihd.net/uploadfile/letras/fotos/7/2/7/4/72743d04c4c7c3304254d118ade0a895.jpg';
+  }
+
+  get fullBackdropPath {
+    if (backdropPath != null) {
+      return 'https://image.tmdb.org/t/p/w500$backdropPath';
     }
 
     return 'https://studiosol-a.akamaihd.net/uploadfile/letras/fotos/7/2/7/4/72743d04c4c7c3304254d118ade0a895.jpg';

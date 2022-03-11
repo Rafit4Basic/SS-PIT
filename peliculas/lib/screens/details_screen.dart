@@ -1,27 +1,27 @@
+//import 'dart:js';
+
 import 'package:flutter/material.dart';
-import 'package:peliculas/widgets/widgets.dart';
+import 'package:peliculas/models/models.dart';
+//import 'package:peliculas/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    final String movie =
-        ModalRoute.of(context)?.settings.arguments.toString() ??
-            'Ya no está :(';
+    final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const _CustomAppbar(),
+          _CustomAppbar(movie),
           SliverList(
               delegate: SliverChildListDelegate([
-            const _PosterAndTitle(),
-            const _Overview(),
-            const _Overview(),
-            const _Overview(),
-            const CastingCards(),
+            _PosterAndTitle(movie),
+            _Overview(movie),
+            _Overview(movie),
+            _Overview(movie),
+            CastingCards(movie.id),
           ]))
         ],
       ),
@@ -30,11 +30,13 @@ class DetailsScreen extends StatelessWidget {
 }
 
 class _CustomAppbar extends StatelessWidget {
-  const _CustomAppbar({Key? key}) : super(key: key);
+  final Movie movie;
+
+  const _CustomAppbar(this.movie);
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: Colors.amber,
+      backgroundColor: const Color.fromARGB(255, 66, 66, 66),
       expandedHeight: 200,
       floating: false,
       pinned: true,
@@ -45,15 +47,15 @@ class _CustomAppbar extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.bottomCenter,
           padding: const EdgeInsets.only(bottom: 10),
-          color: Colors.amber,
-          child: const Text(
-            'movie.title',
-            style: TextStyle(fontSize: 16),
+          color: const Color.fromARGB(255, 63, 63, 63),
+          child: Text(
+            movie.title,
+            style: const TextStyle(fontSize: 16),
           ),
         ),
-        background: const FadeInImage(
-          placeholder: AssetImage('assets/loading.gif'),
-          image: NetworkImage('http://via.placeholder.com/300x400'),
+        background: FadeInImage(
+          placeholder: const AssetImage('assets/loading.gif'),
+          image: NetworkImage(movie.fullBackdropPath),
           //fit: BoxFit.cover,
           height: 150,
         ),
@@ -63,21 +65,28 @@ class _CustomAppbar extends StatelessWidget {
 }
 
 class _PosterAndTitle extends StatelessWidget {
-  const _PosterAndTitle({Key? key}) : super(key: key);
+  final Movie movie;
+  const _PosterAndTitle(this.movie);
   @override
   Widget build(BuildContext context) {
+    // final TextTheme textTheme = Theme.of(context).textTheme;
+    final size = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: const FadeInImage(
-              placeholder: AssetImage('assets/loading.gif'),
-              //Se modificó el tamaño de la imagen para que se viera más bonito (origninal 300x400)
-              image: NetworkImage('http://via.placeholder.com/200x300'),
-              fit: BoxFit.cover,
+          Hero(
+            tag: movie.heroId!,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage(
+                placeholder: const AssetImage('assets/loading.gif'),
+                //Se modificó el tamaño de la imagen para que se viera más bonito (origninal 300x400)
+                image: NetworkImage(movie.fullPosterImg),
+                height: 150,
+                //width: 110,
+              ),
             ),
           ),
           const SizedBox(
@@ -86,14 +95,17 @@ class _PosterAndTitle extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'movie.title',
-                style: Theme.of(context).textTheme.headline5,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: size.width - 190),
+                child: Text(
+                  movie.title,
+                  style: Theme.of(context).textTheme.headline5,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
               ),
               Text(
-                'movie.originalTitle',
+                movie.originalTitle,
                 style: Theme.of(context).textTheme.subtitle1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -105,7 +117,7 @@ class _PosterAndTitle extends StatelessWidget {
                     color: Colors.grey,
                   ),
                   Text(
-                    'movie.voteAverge',
+                    '${movie.voteAverage}',
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ],
@@ -119,13 +131,14 @@ class _PosterAndTitle extends StatelessWidget {
 }
 
 class _Overview extends StatelessWidget {
-  const _Overview({Key? key}) : super(key: key);
+  final Movie movie;
+  const _Overview(this.movie);
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: Text(
-        'Estaba la pájara pinta a la sombra del verde limón. Con el pico picaba la rama con las alas recoge la flor. Estaba la pájara pinta a la sombra del verde limón. Con el pico picaba la rama con las alas recoge la flor. ',
+        movie.overview,
         textAlign: TextAlign.justify,
         style: Theme.of(context).textTheme.subtitle1,
       ),
