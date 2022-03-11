@@ -16,9 +16,11 @@ class MoviesProvider extends ChangeNotifier {
   Map<int, List<Cast>> moviesCast = {};
   // ignore: unused_field
   int _popularPage = 0;
+
   final debouncer = Debouncer(
     duration: const Duration(milliseconds: 500),
   );
+
   final StreamController<List<Movie>> _suggestionStreamController =
       StreamController.broadcast();
   Stream<List<Movie>> get suggestionStream =>
@@ -82,8 +84,10 @@ class MoviesProvider extends ChangeNotifier {
       final results = await searchMovie(value);
       _suggestionStreamController.add(results);
     };
-    final timer = Timer.periodic(const Duration(milliseconds: 300), (_) {
+    final timer = Timer.periodic(const Duration(milliseconds: 100), (_) {
       debouncer.value = searchTerm;
     });
+    Future.delayed(const Duration(milliseconds: 101))
+        .then((_) => timer.cancel());
   }
 }
