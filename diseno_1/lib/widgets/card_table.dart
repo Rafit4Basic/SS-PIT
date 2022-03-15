@@ -12,7 +12,7 @@ class CardTable extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
         child: Table(
-          children: [
+          children: const [
             TableRow(children: [
               _SingleCard(
                 color: Colors.blue,
@@ -77,35 +77,47 @@ class _SingleCard extends StatelessWidget {
       {Key? key, required this.icono, required this.color, required this.texto})
       : super(key: key);
   @override
+  ///////////////////////////////////Widget extraído como variable
+  Widget build(BuildContext context) {
+    var column = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CircleAvatar(
+          backgroundColor: color,
+          child: Icon(
+            icono,
+            size: 35,
+            color: Colors.white,
+          ),
+          radius: 30,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          texto,
+          style: TextStyle(color: color, fontSize: 20),
+        ),
+      ],
+    );
+
+    return _CardBackground(child: column);
+  }
+}
+
+class _CardBackground extends StatelessWidget {
+  final Widget child;
+  const _CardBackground({Key? key, required this.child}) : super(key: key);
+  @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(15),
+      margin: const EdgeInsets.all(15),
       height: 180,
       decoration: BoxDecoration(
-        color: Color.fromRGBO(62, 66, 107, 0.7),
+        color: const Color.fromRGBO(62, 66, 107, 0.7),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            backgroundColor: this.color,
-            child: Icon(
-              this.icono,
-              size: 35,
-              color: Colors.white,
-            ),
-            radius: 30,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            this.texto,
-            style: TextStyle(color: this.color, fontSize: 20),
-          ),
-        ],
-      ),
+      child: child,
     );
   }
 }

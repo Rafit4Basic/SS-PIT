@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ class BackGround extends StatelessWidget {
     return Stack(
       children: [
         Container(decoration: boxDecoration),
-        Positioned(top: -100, left: -30, child: _PinkBox()),
+        const Positioned(top: -100, left: -30, child: _PinkBox()),
       ],
     );
   }
@@ -41,7 +40,7 @@ class _PinkBox extends StatelessWidget {
         height: 360,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(80),
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [
               Color.fromRGBO(236, 98, 188, 1),
               Color.fromRGBO(241, 142, 172, 1),

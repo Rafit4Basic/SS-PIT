@@ -3,7 +3,6 @@ import 'package:diseno_1/widgets/card_table.dart';
 import 'package:diseno_1/widgets/custom_bottom_navigation.dart';
 import 'package:diseno_1/widgets/page_title.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,7 +19,7 @@ class HomeScreen extends StatelessWidget {
           _HomeBody(),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigation(),
+      bottomNavigationBar: const CustomBottomNavigation(),
     );
   }
 }
@@ -32,7 +31,7 @@ class _HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: [
+        children: const [
           PageTitle(),
 
           // carta teibolera
