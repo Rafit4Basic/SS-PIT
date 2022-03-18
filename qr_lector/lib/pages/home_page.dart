@@ -3,9 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:qr_lector/pages/direcciones_page.dart';
 import 'package:qr_lector/pages/mapas_page.dart';
 import 'package:qr_lector/providers/db_provider.dart';
-///////////////////////////////////////////////////////////
 import 'package:qr_lector/providers/scan_list_provider.dart';
-//////////////////////////////////////////////////////////
 import 'package:qr_lector/providers/ui_provider.dart';
 import 'package:qr_lector/widgets/custom_navigatorbar.dart';
 import 'package:qr_lector/widgets/scan_button.dart';
@@ -45,11 +43,11 @@ class _HomePAgeBody extends StatelessWidget {
 
     switch (currentIndex) {
       case 0:
-        ScanListProvider.cargarScanPorTipo('geo');
+        scanListProvider.cargarScanPorTipo('geo');
         return const MapasPage();
 
       case 1:
-        ScanListProvider.cargarScanPorTipo('http');
+        scanListProvider.cargarScanPorTipo('http');
         return const DireccionesPage();
 
       default:
