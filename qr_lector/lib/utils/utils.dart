@@ -12,6 +12,6 @@ void launchURL(BuildContext context, ScanModel scan) async {
       throw 'No jaló :( $url';
     }
   } else {
-    // Navigator.pushNamed(context, 'MapaPage', arguments: scan);
+    Navigator.pushNamed(context, 'mapa', arguments: scan);
   }
 }

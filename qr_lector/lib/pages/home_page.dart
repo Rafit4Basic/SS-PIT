@@ -7,6 +7,7 @@ import 'package:qr_lector/providers/scan_list_provider.dart';
 import 'package:qr_lector/providers/ui_provider.dart';
 import 'package:qr_lector/widgets/custom_navigatorbar.dart';
 import 'package:qr_lector/widgets/scan_button.dart';
+import 'package:qr_lector/widgets/scan_tiles.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -48,7 +49,9 @@ class _HomePAgeBody extends StatelessWidget {
     switch (currentIndex) {
       case 0:
         scanListProvider.cargarScanPorTipo('geo');
-        return const MapasPage();
+        return const ScanTiles(
+          tipo: 'geo',
+        );
 
       case 1:
         scanListProvider.cargarScanPorTipo('http');
